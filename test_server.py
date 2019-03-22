@@ -39,14 +39,18 @@ class TestBuildName:
         details = 'Only these engines are allowed: POSTGRESQL, ORACLE'
         assert error['details'] == details
 
-    def test_should_build_right_server_name(self):
-        # Given
-        self.environment = 'DEV'
-        self.db_engine = 'POSTGRESQL'
-        self.hostname = 'ddaplx01.fr.world.socgen'
-
+    @pytest.mark.parametrize('environment, engine, prefix',
+                             [
+                                 ('DEV', 'POSTGRESQL', 'DPG'),
+                                 ('HML', 'POSTGRESQL', 'HPG'),
+                                 ('PRD', 'POSTGRESQL', 'PPG'),
+                                 ('DEV', 'ORACLE', 'DOR'),
+                                 ('HML', 'ORACLE', 'HOR'),
+                                 ('PRD', 'ORACLE', 'POR'),
+                              ])
+    def test_should_build_right_server_name(self, environment, engine, prefix):
         # When
-        result = build_name(self.environment, self.db_engine, self.hostname)
+        result = build_name(environment, engine, self.hostname)
 
         # Then
-        assert result == 'DPGDAPLX01F'
+        assert result == '{p}DAPLX01F'.format(p=prefix)

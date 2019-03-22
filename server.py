@@ -32,9 +32,7 @@ def build_name(environment, db_engine, hostname):
 
     host_len = len(hostname)
     for item in range(0, host_len):
-        if item == (host_len - 1):
-            pass
-        else:
+        if item != (host_len - 1):
             prefix_id.append(hostname[item + 1])
 
     prefix_id = ''.join(prefix_id)
