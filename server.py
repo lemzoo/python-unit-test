@@ -21,16 +21,18 @@ def build_name(environment, db_engine, hostname):
 
     # TODO: db_engine should be POSTGRESQL or ORACLE
     engine = ALLOWED_ENGINE.get(db_engine)
-    if engine not in ALLOWED_ENGINE:
-        msg = 'Engine `{env}` is unknown'.format(env=db_engine)
+    if not engine:
+        msg = 'Engine `{engine}` is unknown'.format(engine=db_engine)
         details = 'Only these engines are allowed: POSTGRESQL, ORACLE'
         raise ServerNameError(message=msg, details=details)
 
     # TODO: use hostname to build the ID
     hostname = hostname.replace('.', '')
     prefix_id = []
-    for item in range(0, len(hostname)):
-        if (item + 1) == len(hostname):
+
+    host_len = len(hostname)
+    for item in range(0, host_len):
+        if item == (host_len - 1):
             pass
         else:
             prefix_id.append(hostname[item + 1])
