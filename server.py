@@ -15,15 +15,17 @@ class ServerNameError(Exception):
 def build_name(environment, db_engine, hostname):
     # TODO: environment should be DEV, HML or PRD
     if environment not in ALLOWED_ENVIRONMENT:
-        msg = 'Environment `{env}` is unknown'.format(env=environment)
-        details = 'Only these environments are allowed: DEV, HML, PRD'
+        msg = f'Environment `{environment}` is unknown'
+        environments = ', '.join(ALLOWED_ENVIRONMENT)
+        details = f'Only these environments are allowed: {environments}'
         raise ServerNameError(message=msg, details=details)
 
     # TODO: db_engine should be POSTGRESQL or ORACLE
     engine = ALLOWED_ENGINE.get(db_engine)
     if not engine:
-        msg = 'Engine `{engine}` is unknown'.format(engine=db_engine)
-        details = 'Only these engines are allowed: POSTGRESQL, ORACLE'
+        msg = f'Engine `{db_engine}` is unknown'
+        engines = ', '.join(ALLOWED_ENGINE.keys())
+        details = f'Only these engines are allowed: {engines}'
         raise ServerNameError(message=msg, details=details)
 
     # TODO: use hostname to build the ID
@@ -36,6 +38,6 @@ def build_name(environment, db_engine, hostname):
             prefix_id.append(hostname[item + 1])
 
     prefix_id = ''.join(prefix_id)
-    prefix_id = prefix_id.upper()
-    return '{env}{engine}{id}'.format(env=environment[0], engine=engine,
-                                      id=prefix_id[:8])
+    prefix_id = prefix_id.upper()[:8]
+    name = f'{environment[0]}{engine}{prefix_id}'
+    return name.replace('-', '')
