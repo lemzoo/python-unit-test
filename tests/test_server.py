@@ -1,6 +1,6 @@
 import pytest
 
-from server import build_name, ServerNameError
+from lab import build_name, ServerNameError
 
 
 class TestBuildName:

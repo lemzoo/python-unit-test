@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from server import build_name
+from lab.server import build_name
 
 
 class ClusterPostgreSQL:

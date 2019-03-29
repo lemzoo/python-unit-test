@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from cluster import create_cluster as create
+from lab import create_cluster as create
 
 
 class TestCluster:
@@ -9,7 +9,7 @@ class TestCluster:
         self.environment = 'DEV'
         self.vm_profile = 'small.1vCPU.1GoRAM'
         self.version = '10.0'
-        build_name = patch('cluster.build_name')
+        build_name = patch('lab.cluster.build_name')
         self.build_name = build_name.start()
 
     def test_should_return_cluster_with_details(self):
