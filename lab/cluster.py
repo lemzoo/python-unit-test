@@ -3,6 +3,10 @@ from uuid import uuid4
 from lab.server import build_name
 
 
+class ClusterCreationError(Exception):
+    pass
+
+
 class ClusterPostgreSQL:
     uuid = None
     vm_profile = None

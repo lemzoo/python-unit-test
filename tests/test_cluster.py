@@ -1,6 +1,8 @@
 from unittest.mock import patch
 
-from lab import create_cluster as create
+import pytest
+
+from lab import create_cluster as create, ClusterCreationError, ServerNameError
 
 
 class TestCluster:
@@ -33,3 +35,15 @@ class TestCluster:
         self.build_name.assert_called_once_with(environment=self.environment,
                                                 db_engine='POSTGRESQL',
                                                 hostname=cluster.hostname)
+
+    def test_should_raise_when_unable_to_get_server_name(self):
+        # Given
+        self.environment = 'FOO'
+        self.build_name.side_effect = ServerNameError(error='unknown')
+
+        # When
+        with pytest.raises(ClusterCreationError) as error:
+            create(self.environment, self.vm_profile, self.version)
+
+        # Then
+        assert error.value.args == 'unknown environment `FOO`'
