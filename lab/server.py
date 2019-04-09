@@ -30,6 +30,7 @@ def build_name(environment, db_engine, hostname):
 
     # TODO: use hostname to build the ID
     hostname = hostname.replace('.', '')
+    hostname = hostname.replace('-', '')
     prefix_id = []
 
     host_len = len(hostname)
@@ -40,4 +41,4 @@ def build_name(environment, db_engine, hostname):
     prefix_id = ''.join(prefix_id)
     prefix_id = prefix_id.upper()[:8]
     name = f'{environment[0]}{engine}{prefix_id}'
-    return name.replace('-', '')
+    return name
