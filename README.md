@@ -2,8 +2,8 @@
 
 ## Use case:
 
-In this example, we will use practical case which  is used by cloud provider 
-during resource instantiation. We will use database provision workflow. 
+In this example, we will use practical use case which  is used by cloud provider 
+during resource instantiation. We will use database provision workflow example. 
 
 ## Vocabulary
 
@@ -13,7 +13,8 @@ during resource instantiation. We will use database provision workflow.
 
     servername: means the name of the server. It's a technical name which
                 is used by an agent inside the cluster. This agent is in charge
-                to send database activity to another server (CloudWatch) in AWS.
+                to send database activity to another server. From this server,
+                a dashboard like grafana for monitoring service.
 
 
 Below the workflow during provision
